@@ -58,7 +58,7 @@ namespace PhotoEditor
 
             Console.WriteLine("Resource Directory: " + resDir);
             //ListBox myImages = new ListBox();
-            foreach (FileInfo file in resDir.GetFiles("*.jpg"))
+            foreach (FileInfo file in resDir.GetFiles("*.jpeg"))
             {
                 try
                 {
