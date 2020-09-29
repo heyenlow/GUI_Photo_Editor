@@ -58,9 +58,14 @@ namespace PhotoEditor
         private void ScanDirectory()
         {
             // ! this must change !
+                    DirectoryInfo computerHomeDir = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));    //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
+                    Console.WriteLine(computerHomeDir);
             DirectoryInfo homeDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
             DirectoryInfo resDir = new DirectoryInfo(Path.Combine(homeDir.FullName, "Resources"));
-
+            
+            
+            const string filePath = "C:\\Users\\konradheyen\\Documents\\GUI_Photo_Editor\\PhotoEditor\\PhotoEditor\\Resources";
+            resDir = new DirectoryInfo(filePath);
             Console.WriteLine("Resource Directory: " + resDir);
             
             //ListBox myImages = new ListBox();
