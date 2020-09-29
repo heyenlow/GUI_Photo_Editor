@@ -58,10 +58,10 @@ namespace PhotoEditor
 
             Console.WriteLine("Resource Directory: " + resDir);
             //ListBox myImages = new ListBox();
-            foreach (FileInfo file in resDir.GetFiles("*.jpg"))
+            foreach (FileInfo file in resDir.GetFiles("*.jpeg"))
             {
                 try
-                {
+                { 
                     byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
                     MemoryStream ms = new MemoryStream(bytes);
                     Image img = Image.FromStream(ms); // Don’t use Image.FromFile() !!!
