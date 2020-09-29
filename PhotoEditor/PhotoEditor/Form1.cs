@@ -13,10 +13,12 @@ namespace PhotoEditor
 {
     public partial class Form1 : Form
     {
+        List<FileInfo> files;
+
         public Form1()
         {
             InitializeComponent();
-
+            files = new List<FileInfo>();
             // Create three items with sets of subitems for each item
 
             ListViewItem item1 = new ListViewItem("item1", 0);   // Text and image index
@@ -47,6 +49,9 @@ namespace PhotoEditor
             //listView1.View = View.Details;
             listView1.View = View.LargeIcon;
 
+            //all files info will be added into here
+            
+
             ScanDirectory();
         }
 
@@ -57,11 +62,13 @@ namespace PhotoEditor
             DirectoryInfo resDir = new DirectoryInfo(Path.Combine(homeDir.FullName, "Resources"));
 
             Console.WriteLine("Resource Directory: " + resDir);
+            
             //ListBox myImages = new ListBox();
             foreach (FileInfo file in resDir.GetFiles("*.jpeg"))
             {
                 try
                 {
+                    files.Add(file);
                     byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
                     MemoryStream ms = new MemoryStream(bytes);
                     Image img = Image.FromStream(ms); // Don’t use Image.FromFile() !!!
@@ -86,6 +93,12 @@ namespace PhotoEditor
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EditPhoto EP = new EditPhoto(files[listBox1.SelectedIndex]);
+            EP.Show();
         }
     }
 }
