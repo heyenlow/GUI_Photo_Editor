@@ -86,5 +86,37 @@ namespace PhotoEditor
             InvertColors();
             this.Refresh();
         }
+
+        private void ImageBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ColorButton_Click(object sender, EventArgs e)
+        {
+            ColorDialog ColorDialog1 = new ColorDialog();
+            if(ColorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                AlterColors(ColorDialog1.Color);
+                this.Refresh();
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            ChangeBrightness(trackBar1.Value);
+            this.Refresh();
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            ImageBox.Image.Save(ImageBox.Name);
+            Close();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -63,9 +63,8 @@ namespace PhotoEditor
             DirectoryInfo homeDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
             DirectoryInfo resDir = new DirectoryInfo(Path.Combine(homeDir.FullName, "Resources"));
             
-            
             const string filePath = "C:\\Users\\konradheyen\\Documents\\GUI_Photo_Editor\\PhotoEditor\\PhotoEditor\\Resources";
-            resDir = new DirectoryInfo(filePath);
+            //resDir = new DirectoryInfo(filePath);
             Console.WriteLine("Resource Directory: " + resDir);
             
             //ListBox myImages = new ListBox();
@@ -103,7 +102,11 @@ namespace PhotoEditor
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             EditPhoto EP = new EditPhoto(files[listBox1.SelectedIndex]);
-            EP.Show();
+            if(DialogResult.OK == EP.ShowDialog())
+            {
+
+            }
+
         }
     }
 }

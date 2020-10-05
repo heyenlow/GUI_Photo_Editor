@@ -90,7 +90,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\klyl8kkare4d2vnb6pyg_400x400.jpeg" />
+    <EmbeddedResource Include="Resources\klyl8kkare4d2vnb6pyg_400x400.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
