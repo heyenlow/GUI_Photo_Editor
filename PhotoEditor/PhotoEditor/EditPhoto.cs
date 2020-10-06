@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,20 +16,26 @@ namespace PhotoEditor
     {
         Bitmap transformedBitmap;
 
-        private void InvertColors()
+        private async Task InvertColors()
         {
-            for (int y = 0; y < transformedBitmap.Height; y++)
+            await Task.Run(()=>
             {
-                for (int x = 0; x < transformedBitmap.Width; x++)
+                Thread.Sleep(5000);
+                int i = 0;
+                for (int y = 0; y < transformedBitmap.Height; y++)
                 {
-                    var color = transformedBitmap.GetPixel(x, y);
-                    int newRed = Math.Abs(color.R - 255);
-                    int newGreen = Math.Abs(color.G - 255);
-                    int newBlue = Math.Abs(color.B - 255);
-                    Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
-                    transformedBitmap.SetPixel(x, y, newColor);
+                    for (int x = 0; x < transformedBitmap.Width; x++)
+                    {
+                        var color = transformedBitmap.GetPixel(x, y);
+                        int newRed = Math.Abs(color.R - 255);
+                        int newGreen = Math.Abs(color.G - 255);
+                        int newBlue = Math.Abs(color.B - 255);
+                        Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
+                        transformedBitmap.SetPixel(x, y, newColor);
+                        i++;
+                    }
                 }
-            }
+            });
         }
         private void AlterColors(Color chosenColor)
         {
@@ -81,9 +88,10 @@ namespace PhotoEditor
 
         }
 
-        private void InvertButton_Click(object sender, EventArgs e)
+        private async void InvertButton_ClickAsync(object sender, EventArgs e)
         {
-            InvertColors();
+            await InvertColors();
+            
             this.Refresh();
         }
 
