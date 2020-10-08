@@ -127,7 +127,10 @@ namespace PhotoEditor
 
 		private void listView1_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			//EditPhoto EP = new EditPhoto(files[listView1.SelectedItems]);
+			ListView.SelectedIndexCollection indexes = this.listView1.SelectedIndices;
+			foreach (int index in indexes) {
+				EditPhoto EP = new EditPhoto(files[index]);
+			}
 			//if (DialogResult.OK == EP.ShowDialog())
 			//{
 
@@ -217,7 +220,13 @@ namespace PhotoEditor
 
 		private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
 		{
-
+			ListView.SelectedIndexCollection indexes = this.listView1.SelectedIndices;
+			foreach (int index in indexes)
+			{
+				EditPhoto EP = new EditPhoto(files[index]);
+				Console.WriteLine("Here");
+				DialogResult EditResult = EP.ShowDialog();
+			}
 		}
 
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)

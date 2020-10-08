@@ -34,10 +34,10 @@
             this.CancelButton = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.ColorButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -48,9 +48,10 @@
             this.ImageBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ImageBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ImageBox.Location = new System.Drawing.Point(116, 52);
+            this.ImageBox.Location = new System.Drawing.Point(77, 33);
+            this.ImageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImageBox.Name = "ImageBox";
-            this.ImageBox.Size = new System.Drawing.Size(840, 428);
+            this.ImageBox.Size = new System.Drawing.Size(560, 274);
             this.ImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageBox.TabIndex = 0;
             this.ImageBox.TabStop = false;
@@ -59,9 +60,10 @@
             // InvertButton
             // 
             this.InvertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.InvertButton.Location = new System.Drawing.Point(816, 47);
+            this.InvertButton.Location = new System.Drawing.Point(544, 30);
+            this.InvertButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.InvertButton.Name = "InvertButton";
-            this.InvertButton.Size = new System.Drawing.Size(150, 50);
+            this.InvertButton.Size = new System.Drawing.Size(100, 32);
             this.InvertButton.TabIndex = 1;
             this.InvertButton.Text = "Invert";
             this.InvertButton.UseVisualStyleBackColor = true;
@@ -70,10 +72,11 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveButton.Location = new System.Drawing.Point(689, 658);
+            this.SaveButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            this.SaveButton.Location = new System.Drawing.Point(459, 421);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(161, 59);
+            this.SaveButton.Size = new System.Drawing.Size(107, 38);
             this.SaveButton.TabIndex = 2;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -83,9 +86,10 @@
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(872, 658);
+            this.CancelButton.Location = new System.Drawing.Point(581, 422);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(162, 59);
+            this.CancelButton.Size = new System.Drawing.Size(108, 38);
             this.CancelButton.TabIndex = 3;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
@@ -93,10 +97,11 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(65, 48);
+            this.trackBar1.Location = new System.Drawing.Point(43, 31);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(294, 90);
+            this.trackBar1.Size = new System.Drawing.Size(196, 45);
             this.trackBar1.TabIndex = 4;
             this.trackBar1.Value = 50;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -111,62 +116,69 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Controls.Add(this.InvertButton);
-            this.groupBox1.Location = new System.Drawing.Point(32, 507);
+            this.groupBox1.Location = new System.Drawing.Point(21, 324);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1002, 126);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(668, 81);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(323, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 25);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Dark";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(60, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 25);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Light";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(159, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 25);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Brightness";
             // 
             // ColorButton
             // 
             this.ColorButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ColorButton.Location = new System.Drawing.Point(504, 48);
-            this.ColorButton.MaximumSize = new System.Drawing.Size(150, 50);
-            this.ColorButton.MinimumSize = new System.Drawing.Size(150, 50);
+            this.ColorButton.Location = new System.Drawing.Point(336, 31);
+            this.ColorButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ColorButton.MaximumSize = new System.Drawing.Size(100, 32);
+            this.ColorButton.MinimumSize = new System.Drawing.Size(100, 32);
             this.ColorButton.Name = "ColorButton";
-            this.ColorButton.Size = new System.Drawing.Size(150, 50);
+            this.ColorButton.Size = new System.Drawing.Size(100, 32);
             this.ColorButton.TabIndex = 8;
             this.ColorButton.Text = "Color";
             this.ColorButton.UseVisualStyleBackColor = true;
             this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(106, 65);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 16);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Brightness";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 17);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Light";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(215, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Dark";
+            // 
             // EditPhoto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 729);
+            this.ClientSize = new System.Drawing.Size(723, 487);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ImageBox);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(1100, 800);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(739, 526);
             this.Name = "EditPhoto";
             this.Text = "EditPhoto";
             this.Load += new System.EventHandler(this.EditPhoto_Load);
