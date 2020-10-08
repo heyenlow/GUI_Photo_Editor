@@ -8,3 +8,4 @@ Work:
 
 Known Bugs:
   - Save on the edit form
+  - Minimizes after edit
