@@ -212,8 +212,11 @@ namespace PhotoEditor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            Form1.EditedPhoto = (Bitmap)transformedBitmap.Clone();
             try
             {
+
+                transformedBitmap.Save(ImageBox.Name, ImageFormat.Jpeg);
                 ImageBox.Image.Save(ImageBox.Name, ImageFormat.Jpeg);
             }
             catch (Exception)
