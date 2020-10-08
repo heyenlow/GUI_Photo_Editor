@@ -90,6 +90,7 @@
             this.MaximizeBox = false;
             this.Name = "AboutDialog";
             this.Text = "About";
+            this.Load += new System.EventHandler(this.AboutDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

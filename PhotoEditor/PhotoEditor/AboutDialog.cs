@@ -14,7 +14,6 @@ namespace PhotoEditor
     {
         public AboutDialog()
         {
-            //test
             InitializeComponent();
         }
 
@@ -29,6 +28,11 @@ namespace PhotoEditor
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AboutDialog_Load(object sender, EventArgs e)
         {
 
         }
