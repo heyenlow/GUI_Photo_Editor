@@ -7,9 +7,11 @@ Work:
   Luke - File Form 50%
 
 Known Bugs:
+
   Konrad:
   - Save on the edit form
   - Minimizes after edit
+  
   Luke:
   - ListView does not display images outside of Pictures special directory
   - Complete lack of multi-threading
