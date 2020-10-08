@@ -42,23 +42,28 @@ namespace PhotoEditor
 		private void populateTreeView(string path)
 		{
 			treeView1.Nodes.Clear();
-
+			int intNodeIndex;
 			var rootDirectoryInfo = new DirectoryInfo(path);
 
-			treeView1.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
-
-			ScanDirectory(new DirectoryInfo(path));  //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
+			intNodeIndex = treeView1.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
+			treeView1.Nodes[intNodeIndex].Tag = rootDirectoryInfo.FullName;
+			ScanDirectory(new DirectoryInfo(rootDirectoryInfo.FullName));  //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
 		}
 
 		private static TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo)
 		{
 			var directoryNode = new TreeNode(directoryInfo.Name);
+			int intNodeIndex;
 
 			foreach (var directory in directoryInfo.GetDirectories())
-				directoryNode.Nodes.Add(CreateDirectoryNode(directory));
+            {
+				intNodeIndex = directoryNode.Nodes.Add(CreateDirectoryNode(directory));
+				directoryNode.Nodes[intNodeIndex].Tag = directory.FullName;
+            }
+				 
 
-			foreach (var file in directoryInfo.GetFiles())
-				directoryNode.Nodes.Add(new TreeNode(file.Name));
+			//foreach (var file in directoryInfo.GetFiles())
+			//	directoryNode.Nodes.Add(new TreeNode(file.Name));
 
 			return directoryNode;
 		}
@@ -180,7 +185,7 @@ namespace PhotoEditor
 		private void locateOnDiskToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			
-			var folderPath = treeView1.SelectedNode.FullPath;
+			var folderPath = treeView1.SelectedNode.Tag.ToString();
 			if (Directory.Exists(folderPath))
 			{
 				ProcessStartInfo startInfo = new ProcessStartInfo
@@ -251,7 +256,7 @@ namespace PhotoEditor
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-			ScanDirectory(new DirectoryInfo(treeView1.SelectedNode.FullPath));
+			ScanDirectory(new DirectoryInfo(e.Node.Tag.ToString()));
 		}
 
         private void progressBar1_SizeChanged(object sender, EventArgs e)
