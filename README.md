@@ -13,8 +13,6 @@ Known Bugs:
   - Minimizes after edit
   
   Luke:
-  - ListView does not display images outside of Pictures special directory
   - Complete lack of multi-threading
   - Progress bar doesn't work
-  - Locate on disk option doesn't work
-  - Change root directory only works sometimes
+  - Change root directory does not work on C or D drives
