@@ -59,15 +59,5 @@ namespace PhotoEditor.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap klyl8kkare4d2vnb6pyg_400x400 {
-            get {
-                object obj = ResourceManager.GetObject("klyl8kkare4d2vnb6pyg_400x400", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
