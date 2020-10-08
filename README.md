@@ -13,6 +13,5 @@ Known Bugs:
   - Minimizes after edit
   
   Luke:
-  - Complete lack of multi-threading
-  - Progress bar doesn't work
+  - Progress bar may not be functional (my sample sizes were very small)
   - Change root directory does not work on C or D drives
