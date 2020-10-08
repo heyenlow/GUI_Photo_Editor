@@ -43,9 +43,9 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -64,7 +64,7 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(186, 393);
+            this.treeView1.Size = new System.Drawing.Size(222, 483);
             this.treeView1.TabIndex = 2;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
@@ -77,7 +77,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(693, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -95,21 +95,21 @@
             // locateOnDiskToolStripMenuItem
             // 
             this.locateOnDiskToolStripMenuItem.Name = "locateOnDiskToolStripMenuItem";
-            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.locateOnDiskToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.locateOnDiskToolStripMenuItem.Text = "Locate on Disk";
             this.locateOnDiskToolStripMenuItem.Click += new System.EventHandler(this.locateOnDiskToolStripMenuItem_Click);
             // 
             // selectRootFolderToolStripMenuItem
             // 
             this.selectRootFolderToolStripMenuItem.Name = "selectRootFolderToolStripMenuItem";
-            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectRootFolderToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.selectRootFolderToolStripMenuItem.Text = "Select Root Folder";
             this.selectRootFolderToolStripMenuItem.Click += new System.EventHandler(this.selectRootFolderToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -164,12 +164,20 @@
             // 
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.HideSelection = false;
+            this.listView1.LargeImageList = this.imageList2;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(370, 393);
+            this.listView1.Size = new System.Drawing.Size(443, 483);
+            this.listView1.SmallImageList = this.imageList2;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged_1);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // splitContainer1
             // 
@@ -186,28 +194,26 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listView1);
-            this.splitContainer1.Size = new System.Drawing.Size(560, 393);
-            this.splitContainer1.SplitterDistance = 186;
+            this.splitContainer1.Size = new System.Drawing.Size(669, 483);
+            this.splitContainer1.SplitterDistance = 222;
             this.splitContainer1.TabIndex = 5;
             // 
             // progressBar1
             // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(12, 27);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(560, 23);
+            this.progressBar1.Size = new System.Drawing.Size(669, 23);
             this.progressBar1.TabIndex = 6;
-            // 
-            // imageList2
-            // 
-            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.progressBar1.SizeChanged += new System.EventHandler(this.progressBar1_SizeChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 461);
+            this.ClientSize = new System.Drawing.Size(693, 551);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);

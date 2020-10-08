@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,8 +24,12 @@ namespace PhotoEditor
 		{
 			InitializeComponent();
 
-			listView1.View = View.LargeIcon;
+			listView1.View = View.Details;
 			imageList2.ImageSize = new Size(64, 64);
+
+			listView1.Columns.Add("Name", -2, HorizontalAlignment.Left);
+			listView1.Columns.Add("Last Changed", -2, HorizontalAlignment.Left);
+			listView1.Columns.Add("Size", -2, HorizontalAlignment.Left);
 
 			populateTreeView(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
@@ -66,9 +71,13 @@ namespace PhotoEditor
 			treeView1.ImageList = imageList1;
 		}
 
-		private void ScanDirectory(DirectoryInfo dir)
+		async private void ScanDirectory(DirectoryInfo dir)
 		{
 			listView1.Items.Clear();
+
+
+			setProgressBar(dir.GetFiles("*jpeg").Length);
+
 			int intI = -1;
 			foreach (FileInfo file in dir.GetFiles("*.jpeg"))
 			{
@@ -81,18 +90,24 @@ namespace PhotoEditor
 					MemoryStream ms = new MemoryStream(bytes);
 					Image img = Image.FromStream(ms); // Don’t use Image.FromFile() !!!
 					imageList2.Images.Add(img);
-					listView1.Items.Add(file.Name,intI);
-					//Console.WriteLine("Filename: " + file.Name);
-					//Console.WriteLine("Last mod: " + file.LastWriteTime.ToString());
-					//Console.WriteLine("File size: " + file.Length);
+					listView1.Items.Add(new ListViewItem(new[] { file.Name, file.LastWriteTime.ToString(), (file.Length / 1024).ToString() + " KB" }, intI)); //https://stackoverflow.com/a/22387272/13966072
+					//Thread.Sleep(100);
+					progressBar1.PerformStep();
 				}
 				catch
 				{
 					Console.WriteLine("This is not an image file");
 				}
 			}
-			listView1.LargeImageList = imageList2;
-			listView1.SmallImageList = imageList2;
+			setProgressBar();
+		}
+
+		private void setProgressBar(int max = 0)
+		{
+			progressBar1.Value = 0;
+			progressBar1.Minimum = 0;
+			progressBar1.Maximum = max;
+			progressBar1.Step = 1;
 		}
 
 		private void PopulateImageList(DirectoryInfo dir)
@@ -139,7 +154,7 @@ namespace PhotoEditor
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-
+			
 		}
 
 		//private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -197,19 +212,19 @@ namespace PhotoEditor
 
 		private void detailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
+			listView1.View = View.Details;
 		}
 
 		private void smallToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			imageList2.ImageSize = new Size(16, 16);
 			listView1.View = View.SmallIcon;
+			imageList2.ImageSize = new Size(64, 64);
 		}
 
 		private void largeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			imageList2.ImageSize = new Size(64, 64);
 			listView1.View = View.LargeIcon;
+			//imageList2.ImageSize = new Size(128, 128);
 		}
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -238,5 +253,10 @@ namespace PhotoEditor
         {
 			ScanDirectory(new DirectoryInfo(treeView1.SelectedNode.FullPath));
 		}
+
+        private void progressBar1_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
