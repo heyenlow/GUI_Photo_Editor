@@ -14,6 +14,7 @@ namespace PhotoEditor
     {
         public AboutDialog()
         {
+            //test
             InitializeComponent();
         }
 
