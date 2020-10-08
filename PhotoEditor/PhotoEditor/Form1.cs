@@ -280,7 +280,6 @@ namespace PhotoEditor
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 			progressBar1.Visible = false;
-			progressBar1.Value = 0;
         }
     }
 }
