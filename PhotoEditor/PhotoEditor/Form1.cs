@@ -17,6 +17,7 @@ namespace PhotoEditor
 	{
 
 		List<FileInfo> files = new List<FileInfo>();
+		public static Bitmap EditedPhoto;
 
 		private FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
 
