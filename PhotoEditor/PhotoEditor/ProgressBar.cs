@@ -40,5 +40,10 @@ namespace PhotoEditor
                 this.Refresh();
             }
         }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            EditPhoto.CancelEdit = true;
+        }
     }
 }

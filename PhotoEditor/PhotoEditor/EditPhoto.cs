@@ -20,7 +20,7 @@ namespace PhotoEditor
         public static bool CancelEdit = false;
         private async Task InvertColors()
         {
-            BeforeTransfromation = transformedBitmap;
+            BeforeTransfromation = (Bitmap)transformedBitmap.Clone();
             await Task.Run(() =>
             {
                 CancelEdit = false;
@@ -40,6 +40,7 @@ namespace PhotoEditor
                         int newBlue = Math.Abs(color.B - 255);
                         Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
                         transformedBitmap.SetPixel(x, y, newColor);
+                  
                     }
                     i++;
                     Invoke((Action)delegate ()
@@ -49,11 +50,12 @@ namespace PhotoEditor
                 }
                 if (CancelEdit)
                 {
-                    this.ImageBox.Image = BeforeTransfromation;
-                    transformedBitmap = BeforeTransfromation;
-                    Console.WriteLine("Here");
+                    
+                    Console.WriteLine("Cancel Here");
                     Invoke((Action)delegate ()
                     {
+                        this.ImageBox.Image = BeforeTransfromation;
+                        transformedBitmap = BeforeTransfromation;
                         ProgressBarDialog.Close();
                     });
 
@@ -63,7 +65,7 @@ namespace PhotoEditor
         }
         private async Task AlterColors(Color chosenColor)
         {
-            BeforeTransfromation = transformedBitmap;
+            BeforeTransfromation = (Bitmap)transformedBitmap.Clone();
             await Task.Run(() =>
             {
                 CancelEdit = false;
@@ -73,9 +75,9 @@ namespace PhotoEditor
                     ProgressBarDialog.ProgressBarLimits(0, transformedBitmap.Height);
                 });
                 int i = 0;
-                for (int y = 0; y < transformedBitmap.Height; y++)
+                for (int y = 0; y < transformedBitmap.Height && !CancelEdit; y++)
                     {
-                    for (int x = 0; x < transformedBitmap.Width; x++)
+                    for (int x = 0; x < transformedBitmap.Width && !CancelEdit; x++)
                         //6
                     {
                         var color = transformedBitmap.GetPixel(x, y);
@@ -110,7 +112,7 @@ namespace PhotoEditor
         // brightness is a value between 0 – 100. Values < 50 makes the image darker, > 50 makes lighter
         private async Task ChangeBrightness(int brightness)
         {
-            BeforeTransfromation = transformedBitmap;
+            BeforeTransfromation = (Bitmap)transformedBitmap.Clone();
             await Task.Run(() =>
             {
                 CancelEdit = false;
@@ -122,9 +124,9 @@ namespace PhotoEditor
                 int i = 0;
                 // Calculate amount to change RGB
                 int amount = Convert.ToInt32(2 * (50 - brightness) * 0.01 * 255);
-                for (int y = 0; y < transformedBitmap.Height; y++)
+                for (int y = 0; y < transformedBitmap.Height && !CancelEdit; y++)
                 {
-                    for (int x = 0; x < transformedBitmap.Width; x++)
+                    for (int x = 0; x < transformedBitmap.Width && !CancelEdit; x++)
                     {
                         var color = transformedBitmap.GetPixel(x, y);
                         int newRed = Math.Max(0, Math.Min(color.R - amount, 255));
@@ -159,6 +161,7 @@ namespace PhotoEditor
         {
             InitializeComponent();
             transformedBitmap = new Bitmap(file.FullName);
+            BeforeTransfromation = new Bitmap(file.FullName);
             this.ImageBox.Image = transformedBitmap;
             this.Text = file.Name;
             //this.ImageBox.ImageLocation = file.FullName;

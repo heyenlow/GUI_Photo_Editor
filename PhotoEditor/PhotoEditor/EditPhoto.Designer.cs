@@ -45,14 +45,15 @@
             // 
             // ImageBox
             // 
-            this.ImageBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ImageBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ImageBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ImageBox.Location = new System.Drawing.Point(77, 33);
             this.ImageBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImageBox.Name = "ImageBox";
             this.ImageBox.Size = new System.Drawing.Size(560, 274);
-            this.ImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ImageBox.TabIndex = 0;
             this.ImageBox.TabStop = false;
             this.ImageBox.Click += new System.EventHandler(this.ImageBox_Click);
