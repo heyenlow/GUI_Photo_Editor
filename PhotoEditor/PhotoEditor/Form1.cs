@@ -20,7 +20,7 @@ namespace PhotoEditor
 		public static Bitmap EditedPhoto;
 
 		private FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
-
+		private string ScanPath;
 		public Form1()
 		{
 			InitializeComponent();
@@ -44,11 +44,12 @@ namespace PhotoEditor
 		{
 			treeView1.Nodes.Clear();
 			int intNodeIndex;
-			var rootDirectoryInfo = new DirectoryInfo(path);
-
+			DirectoryInfo rootDirectoryInfo;
+			rootDirectoryInfo = new DirectoryInfo(path);
 			intNodeIndex = treeView1.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
 			treeView1.Nodes[intNodeIndex].Tag = rootDirectoryInfo.FullName;
-			ScanDirectory(new DirectoryInfo(rootDirectoryInfo.FullName));  //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
+			ScanPath = path;
+			backgroundWorker1.RunWorkerAsync(); //https://stackoverflow.com/a/6481328/13966072
 		}
 
 		private static TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo)
@@ -82,7 +83,7 @@ namespace PhotoEditor
 			listView1.Items.Clear();
 
 
-			setProgressBar(dir.GetFiles("*jpeg").Length);
+			//setProgressBar(dir.GetFiles("*jpeg").Length);
 
 			int intI = -1;
 			foreach (FileInfo file in dir.GetFiles("*.jpeg"))
@@ -105,7 +106,7 @@ namespace PhotoEditor
 					Console.WriteLine("This is not an image file");
 				}
 			}
-			setProgressBar();
+			//setProgressBar();
 		}
 
 		private void setProgressBar(int max = 0)
@@ -263,6 +264,23 @@ namespace PhotoEditor
         private void progressBar1_SizeChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+			progressBar1.Visible = true;
+			ScanDirectory(new DirectoryInfo(ScanPath));  //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
+		}
+
+		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+			//backgroundWorker1.ReportProgress(
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+			progressBar1.Visible = false;
+			progressBar1.Value = 0;
         }
     }
 }
