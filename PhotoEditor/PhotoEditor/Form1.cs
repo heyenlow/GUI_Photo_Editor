@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,102 +12,222 @@ using System.Windows.Forms;
 
 namespace PhotoEditor
 {
-    public partial class Form1 : Form
-    {
-        List<FileInfo> files;
+	public partial class Form1 : Form
+	{
 
-        public Form1()
-        {
-            InitializeComponent();
-            files = new List<FileInfo>();
-            // Create three items with sets of subitems for each item
+		List<FileInfo> files = new List<FileInfo>();
 
-            ListViewItem item1 = new ListViewItem("item1", 0);   // Text and image index
-            item1.SubItems.Add("1");   // Column 2
-            item1.SubItems.Add("2");   // Column 3
-            item1.SubItems.Add("3");   // Column 4
+		private FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
 
-            ListViewItem item2 = new ListViewItem("item2", 1);
-            item2.SubItems.Add("4");
-            item2.SubItems.Add("5");
-            item2.SubItems.Add("6");
+		public Form1()
+		{
+			InitializeComponent();
 
-            ListViewItem item3 = new ListViewItem("item3", 2);
-            item3.SubItems.Add("7");
-            item3.SubItems.Add("8");
-            item3.SubItems.Add("9");
+			listView1.View = View.LargeIcon;
+			imageList2.ImageSize = new Size(64, 64);
 
-            // Create columns (Width of -2 indicates auto-size)
-            listView1.Columns.Add("Column 1", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Column 2", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Column 3", 40, HorizontalAlignment.Right);
-            listView1.Columns.Add("Column 4", 40, HorizontalAlignment.Center);
+			populateTreeView(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
-            // Add the items to the list view
-            listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
+			setTreeViewIcons();
+			
+			//PopulateImageList(new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)));
 
-            // Show default view
-            //listView1.View = View.Details;
-            listView1.View = View.LargeIcon;
+		}
 
-            //all files info will be added into here
-            
+		private void populateTreeView(string path)
+		{
+			treeView1.Nodes.Clear();
 
-            ScanDirectory();
-        }
+			var rootDirectoryInfo = new DirectoryInfo(path);
 
-        private void ScanDirectory()
-        {
-            // ! this must change !
-                    DirectoryInfo computerHomeDir = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));    //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
-                    Console.WriteLine(computerHomeDir);
-            DirectoryInfo homeDir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            DirectoryInfo resDir = new DirectoryInfo(Path.Combine(homeDir.FullName, "Resources"));
-            
-            const string filePath = "C:\\Users\\konradheyen\\Documents\\GUI_Photo_Editor\\PhotoEditor\\PhotoEditor\\Resources";
-            //resDir = new DirectoryInfo(filePath);
-            Console.WriteLine("Resource Directory: " + resDir);
-            
-            //ListBox myImages = new ListBox();
-            foreach (FileInfo file in resDir.GetFiles("*.jpeg"))
-            {
-                try
-                {
-                    files.Add(file);
-                    byte[] bytes = System.IO.File.ReadAllBytes(file.FullName);
-                    MemoryStream ms = new MemoryStream(bytes);
-                    Image img = Image.FromStream(ms); // Don’t use Image.FromFile() !!!
-                    listBox1.Items.Add(file.Name);
-                    Console.WriteLine("Filename: " + file.Name);
-                    Console.WriteLine("Last mod: " + file.LastWriteTime.ToString());
-                    Console.WriteLine("File size: " + file.Length);
-                }
-                catch
-                {
-                    Console.WriteLine("This is not an image file");
-                }
+			treeView1.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
+
+			ScanDirectory(new DirectoryInfo(path));  //https://stackoverflow.com/questions/816566/how-do-you-get-the-current-project-directory-from-c-sharp-code-when-creating-a-c
+		}
+
+		private static TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo)
+		{
+			var directoryNode = new TreeNode(directoryInfo.Name);
+
+			foreach (var directory in directoryInfo.GetDirectories())
+				directoryNode.Nodes.Add(CreateDirectoryNode(directory));
+
+			foreach (var file in directoryInfo.GetFiles())
+				directoryNode.Nodes.Add(new TreeNode(file.Name));
+
+			return directoryNode;
+		}
+
+		private void setTreeViewIcons()
+		{
+			imageList1.Images.Add(new Bitmap(GetType(), "folder-closed.png"));
+			imageList1.Images.Add(new Bitmap(GetType(), "folder-open.png"));
+			imageList1.Images.Add(new Bitmap(GetType(), "image-icon.png"));
+			treeView1.ImageList = imageList1;
+		}
+
+		private void ScanDirectory(DirectoryInfo dir)
+		{
+			listView1.Items.Clear();
+			int intI = -1;
+			foreach (FileInfo file in dir.GetFiles("*.jpeg"))
+			{
+				try
+				{ 
+					intI += 1;
+				
+					files.Add(file);
+					byte[] bytes = File.ReadAllBytes(file.FullName);
+					MemoryStream ms = new MemoryStream(bytes);
+					Image img = Image.FromStream(ms); // Don’t use Image.FromFile() !!!
+					imageList2.Images.Add(img);
+					listView1.Items.Add(file.Name,intI);
+					//Console.WriteLine("Filename: " + file.Name);
+					//Console.WriteLine("Last mod: " + file.LastWriteTime.ToString());
+					//Console.WriteLine("File size: " + file.Length);
+				}
+				catch
+				{
+					Console.WriteLine("This is not an image file");
+				}
+			}
+			listView1.LargeImageList = imageList2;
+			listView1.SmallImageList = imageList2;
+		}
+
+		private void PopulateImageList(DirectoryInfo dir)
+		{
+			ImageList imageList = new ImageList();
+			imageList.ImageSize = new Size(32, 32);
+
+			String[] paths = { };
+			paths = Directory.GetFiles(dir.FullName);
+
+			try
+			{
+				foreach (String path in paths)
+				{
+					byte[] bytes = File.ReadAllBytes(path);
+					MemoryStream ms = new MemoryStream(bytes);
+					imageList.Images.Add(Image.FromStream(ms));
+				}
+			} catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
+			}
+
+			listView1.SmallImageList = imageList;
+
+			var j = 0;
+			foreach (var img in imageList.Images)
+			{
+				listView1.Items.Add(Name, j++);
+			}
+		}
+
+		private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//EditPhoto EP = new EditPhoto(files[listView1.SelectedItems]);
+			//if (DialogResult.OK == EP.ShowDialog())
+			//{
+
+			//}
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		//private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+		//{
+		//    EditPhoto EP = new EditPhoto(files[listBox1.SelectedIndex]);
+		//    if(DialogResult.OK == EP.ShowDialog())
+		//    {
+
+		//    }
+
+		//}
+
+		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			
+		}
+
+		private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+		{
+
+		}
+
+		private void locateOnDiskToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			
+			var folderPath = treeView1.SelectedNode.FullPath;
+			if (Directory.Exists(folderPath))
+			{
+				ProcessStartInfo startInfo = new ProcessStartInfo
+				{
+					Arguments = folderPath,
+					FileName = "explorer.exe"
+				};
+
+				Process.Start(startInfo);
             }
-            //listBox1.Items = myImages.Items;
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            EditPhoto EP = new EditPhoto(files[listBox1.SelectedIndex]);
-            if(DialogResult.OK == EP.ShowDialog())
+            else
             {
-
+				MessageBox.Show(string.Format("{0} Directory does not exist!", folderPath));
             }
+		}
+
+		private void selectRootFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+			{
+				populateTreeView(folderBrowserDialog1.SelectedPath);
+			}
+		}
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void detailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void smallToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			imageList2.ImageSize = new Size(16, 16);
+			listView1.View = View.SmallIcon;
+		}
+
+		private void largeToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			imageList2.ImageSize = new Size(64, 64);
+			listView1.View = View.LargeIcon;
+		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var aboutDialog = new AboutDialog();
+			aboutDialog.ShowDialog();
+		}
+
+		private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+		{
+
+		}
+
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+			ScanDirectory(new DirectoryInfo(treeView1.SelectedNode.FullPath));
+		}
     }
 }
