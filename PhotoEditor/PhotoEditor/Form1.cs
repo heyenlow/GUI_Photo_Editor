@@ -64,8 +64,8 @@ namespace PhotoEditor
             }
 				 
 
-			//foreach (var file in directoryInfo.GetFiles())
-			//	directoryNode.Nodes.Add(new TreeNode(file.Name));
+//			foreach (var file in directoryInfo.GetFiles())
+	//			directoryNode.Nodes.Add(new TreeNode(file.Name));
 
 			return directoryNode;
 		}
@@ -86,7 +86,7 @@ namespace PhotoEditor
 			//setProgressBar(dir.GetFiles("*jpeg").Length);
 
 			int intI = -1;
-			foreach (FileInfo file in dir.GetFiles("*.jpeg"))
+			foreach (FileInfo file in dir.GetFiles("*.jpg"))
 			{
 				try
 				{ 
